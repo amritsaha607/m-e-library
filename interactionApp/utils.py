@@ -13,3 +13,7 @@ def _add_friend_request(requestor: SiteUser, sent_to: SiteUser):
 def _follow_user(following: SiteUser, follower: SiteUser):
     follower.followers.add(following)
     follower.save()
+
+
+def _add_user_to_session(request, user_id: int):
+    request.session['user_id'] = user_id

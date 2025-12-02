@@ -1,7 +1,8 @@
 from django.http import JsonResponse
 
 from .responses import RESPONSE_OK, RESPONSE_UNAUTHORIZED
-from .utils import _add_friend_request, _follow_user, get_user_by_id
+from .utils import (_add_friend_request, _add_user_to_session, _follow_user,
+                    get_user_by_id)
 
 
 def request_friendship(request):
@@ -26,4 +27,10 @@ def follow_user(request):
 
     _follow_user(req_user, sent_user)
 
+    return JsonResponse(RESPONSE_OK)
+
+
+def login(request):
+    user_id = request.POST['user_id']
+    _add_user_to_session(user_id)
     return JsonResponse(RESPONSE_OK)

@@ -20,5 +20,8 @@ class SiteUser(models.Model):
     friend_requests = models.ManyToManyField('SiteUser',
                                              related_name='sent_requests')
 
+    is_account_locked = models.BooleanField(default=False)
+    is_password_compromised = models.BooleanField(default=False)
+
     def __str__(self):
         return self.username
