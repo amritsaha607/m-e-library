@@ -3,15 +3,15 @@ from django.utils import timezone
 from .models import StoreAssociate, Supervisor, TimeOffRequest
 
 
-def _get_associate_by_id(_id: str | int):
+def _get_associate_by_id(_id: str | int) -> StoreAssociate:
     return StoreAssociate.objects.get(id=_id)
 
 
-def _get_supervisor_by_id(_id: str | int):
+def _get_supervisor_by_id(_id: str | int) -> Supervisor:
     return Supervisor.objects.get(id=_id)
 
 
-def _get_timeoff_request_by_id(_id: str | int):
+def _get_timeoff_request_by_id(_id: str | int) -> TimeOffRequest:
     return TimeOffRequest.objects.get(id=_id)
 
 
@@ -26,3 +26,8 @@ def _create_timeoff_request(associate: StoreAssociate,
         approval_requested_by=supervisor,
         is_approved=False,
     )
+
+
+def _approve_timeoff_request(timeoff_request: TimeOffRequest):
+    timeoff_request.status = 'APPROVED'
+    timeoff_request.save()

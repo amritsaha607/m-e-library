@@ -4,6 +4,12 @@ from django.utils import timezone
 from .associate import StoreAssociate
 from .supervisor import Supervisor
 
+STATUS_CHOICES = [
+    ('PENDING', 'PENDING'),
+    ('APPROVED', 'APPROVED'),
+    ('DECLINED', 'DECLINED'),
+]
+
 
 class TimeOffRequest(models.Model):
     raised_at = models.DateTimeField(default=timezone.now)
@@ -16,7 +22,9 @@ class TimeOffRequest(models.Model):
                                               on_delete=models.SET_NULL,
                                               null=True,
                                               blank=True)
-    is_approved = models.BooleanField(default=False)
+    status = models.CharField(choices=STATUS_CHOICES,
+                              max_length=10,
+                              default='PENDING')
 
     def __str__(self):
         return str(self.raised_by)
