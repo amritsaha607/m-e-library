@@ -1,0 +1,4 @@
+- StoreAssociate can check in and check out in the store. When an associate checks in the store, associate will be marked as checked in (is_checked_in attribute will be updated to True).
+- For the first checkin of the day, if the associate is more late than 30 minutes from the slot_start_time, a prorated loss of pay will be incurred for the day based on number of minutes of delay from the slot_start_time.
+- For the last checkout of the day, if the associate checks out earlier than 30 minutes of slot_end_time, a prorated loss of pay will be incurred for the day based on number of minutes.
+- However, an associate can request an exception, and the immediate supervisor can approve the exception which will be valid for a day. If an associate has an approved exception for a day, loss of pay will not be incurred for that associate. This is a special use case.
