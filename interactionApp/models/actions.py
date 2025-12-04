@@ -5,8 +5,9 @@ from .associate import StoreAssociate
 from .supervisor import Supervisor
 
 
-class ExceptionRequest(models.Model):
+class TimeOffRequest(models.Model):
     raised_at = models.DateTimeField(default=timezone.now)
+    request_date = models.DateField()
     raised_by = models.ForeignKey(StoreAssociate,
                                   related_name='raised_exceptions',
                                   on_delete=models.CASCADE)
