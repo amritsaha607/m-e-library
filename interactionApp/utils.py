@@ -31,3 +31,8 @@ def _create_timeoff_request(associate: StoreAssociate,
 def _approve_timeoff_request(timeoff_request: TimeOffRequest):
     timeoff_request.status = 'APPROVED'
     timeoff_request.save()
+
+
+def _decline_timeoff_request(timeoff_request: TimeOffRequest):
+    timeoff_request.status = 'DECLINED'
+    timeoff_request.save()

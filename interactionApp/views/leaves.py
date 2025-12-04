@@ -4,6 +4,7 @@ from django.views.decorators.csrf import csrf_exempt
 from interactionApp.responses import RESPONSE_OK, RESPONSE_UNAUTHORIZED
 from interactionApp.utils import (_approve_timeoff_request,
                                   _create_timeoff_request,
+                                  _decline_timeoff_request,
                                   _get_associate_by_id,
                                   _get_timeoff_request_by_id)
 
@@ -26,5 +27,16 @@ def approve_timeoff_request(request):
 
     timeoff_request = _get_timeoff_request_by_id(timeoff_request_id)
     _approve_timeoff_request(timeoff_request)
+
+    return JsonResponse(RESPONSE_OK)
+
+
+@csrf_exempt
+def decline_timeoff_request(request):
+    approver_id = request.POST['approver_id']
+    timeoff_request_id = request.POST['timeoff_request_id']
+
+    timeoff_request = _get_timeoff_request_by_id(timeoff_request_id)
+    _decline_timeoff_request(timeoff_request)
 
     return JsonResponse(RESPONSE_OK)
