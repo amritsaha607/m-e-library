@@ -16,7 +16,7 @@ class StoreAssociate(models.Model):
     hourly_pay = models.DecimalField(decimal_places=2,
                                      max_digits=10,
                                      default=5)
-    has_exception = models.BooleanField(default=False)
+    is_on_timeoff = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name
