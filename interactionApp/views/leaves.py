@@ -1,7 +1,8 @@
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 
-from interactionApp.responses import RESPONSE_OK, RESPONSE_UNAUTHORIZED
+from interactionApp.responses import (RESPONSE_CONFLICT, RESPONSE_OK,
+                                      RESPONSE_UNAUTHORIZED)
 from interactionApp.utils import (_approve_timeoff_request,
                                   _create_timeoff_request,
                                   _decline_timeoff_request,
