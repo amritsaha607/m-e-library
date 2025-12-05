@@ -6,7 +6,21 @@
 - Returns associate data
 
 We're using Azure Redis cache for this implementation. Any implementation being done must support Azure Redis cache. A ttl should be set to every cache item with a max life of 1 day. We can assume we have enough storage in cache and storing data is not a challenge.
-If associate data is not present in database & cache, it MUST return with 404 response code.
+If associate data is not present in database & cache, it MUST return with 404 response code and no data.
+
+A sample successful response looks like below
+
+```json
+{
+  "name": "A1",
+  "supervisor": "Sup1",
+  "slot_start_time": "2025-12-05 09:33:13+00:00",
+  "slot_end_time": "2025-12-05 10:33:31+00:00",
+  "hourly_pay": "5.00",
+  "is_on_timeoff": false,
+  "is_checked_in": false
+}
+```
 
 #### Features
 
