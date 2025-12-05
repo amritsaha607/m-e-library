@@ -9,8 +9,6 @@ def associate_to_json(associate: StoreAssociate):
         'slot_start_time': str(associate.slot_start_time),
         'slot_end_time': str(associate.slot_end_time),
         'hourly_pay': associate.hourly_pay,
-        'is_on_timeoff': associate.is_on_timeoff,
-        'is_checked_in': associate.is_checked_in,
     }
 
 
