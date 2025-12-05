@@ -3,6 +3,9 @@ from django.utils import timezone
 from .models import (AssociatePaymentAudit, StoreAssociate, Supervisor,
                      TimeOffRequest)
 
+DATE_FORMAT = "%Y-%m-%d"
+DATETIME_FORMAT = "%Y-%m-%d %H:%M:%S"
+
 
 def _get_associate_by_id(_id: str | int) -> StoreAssociate:
     return StoreAssociate.objects.get(id=_id)
