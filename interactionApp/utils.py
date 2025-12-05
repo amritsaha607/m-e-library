@@ -46,3 +46,15 @@ def _log_associate_check_in(associate_id, check_in_time):
         date=timezone.now(),
         check_in_time=check_in_time,
     )
+
+
+def _log_associate_check_out(associate_id, check_out_time):
+    associate = _get_associate_by_id(associate_id)
+    audit = AssociatePaymentAudit.objects.get(
+        associate=associate,
+        date=timezone.now(),
+    )
+    audit.check_out_time = check_out_time
+    audit.save()
+
+    audit._compute_and_update_payment()

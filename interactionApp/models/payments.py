@@ -4,8 +4,8 @@ from django.utils import timezone
 from .associate import StoreAssociate
 from .supervisor import Supervisor
 
-
 ALLOWED_DELAY = 1800
+
 
 class AssociatePaymentAudit(models.Model):
     associate = models.ForeignKey(StoreAssociate,
@@ -27,10 +27,11 @@ class AssociatePaymentAudit(models.Model):
         exp_check_out_time = associate.slot_end_time
         hourly_payment = associate.hourly_pay
 
-        check_in_diff =  self.check_in_time - exp_check_in_time
+        check_in_diff = self.check_in_time - exp_check_in_time
         check_out_diff = exp_check_out_time - self.check_out_time
 
-        hours_worked = (self.check_out_time - self.check_in_time).total_seconds / 3600
+        hours_worked = (self.check_out_time -
+                        self.check_in_time).total_seconds / 3600
         self.amount = hours_worked * hourly_payment
 
         self.save()
