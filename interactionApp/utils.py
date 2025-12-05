@@ -63,4 +63,12 @@ def _log_associate_check_out(associate_id, check_out_time):
     audit.check_out_time = check_out_time
     audit.save()
 
+
+def _update_associate_payment(associate_id):
+    associate = _get_associate_by_id(associate_id)
+    audit = AssociatePaymentAudit.objects.get(
+        associate=associate,
+        date=timezone.now(),
+    )
+
     audit._compute_and_update_payment()

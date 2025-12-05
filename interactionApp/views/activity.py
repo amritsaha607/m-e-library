@@ -10,7 +10,8 @@ from interactionApp.utils import (_approve_timeoff_request,
                                   _get_associate_by_id,
                                   _get_timeoff_request_by_id,
                                   _log_associate_check_in,
-                                  _log_associate_check_out)
+                                  _log_associate_check_out,
+                                  _update_associate_payment)
 
 
 @csrf_exempt
@@ -38,4 +39,17 @@ def store_check_out(request):
     associate_id = request.POST['associate_id']
     check_out_time = request.POST['check_out_time']
     _log_associate_check_out(associate_id, check_out_time)
+    return JsonResponse(RESPONSE_OK)
+
+
+@csrf_exempt
+def update_associate_payment(request):
+    """
+    Validates incoming request parameters' data types.
+    Checks if the related objects exists in the system/database.
+    Should validate logical flows and edge cases.
+    """
+
+    associate_id = request.POST['associate_id']
+    _update_associate_payment(associate_id)
     return JsonResponse(RESPONSE_OK)
