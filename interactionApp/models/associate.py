@@ -17,6 +17,7 @@ class StoreAssociate(models.Model):
                                      max_digits=10,
                                      default=5)
     is_on_timeoff = models.BooleanField(default=False)
+    is_checked_in = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name

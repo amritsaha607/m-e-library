@@ -1,6 +1,7 @@
 from django.utils import timezone
 
-from .models import StoreAssociate, Supervisor, TimeOffRequest
+from .models import (AssociatePaymentAudit, StoreAssociate, Supervisor,
+                     TimeOffRequest)
 
 
 def _get_associate_by_id(_id: str | int) -> StoreAssociate:
@@ -36,3 +37,12 @@ def _approve_timeoff_request(timeoff_request: TimeOffRequest):
 def _decline_timeoff_request(timeoff_request: TimeOffRequest):
     timeoff_request.status = 'DECLINED'
     timeoff_request.save()
+
+
+def _log_associate_check_in(associate_id, check_in_time):
+    associate = _get_associate_by_id(associate_id)
+    AssociatePaymentAudit.objects.create(
+        associate=associate,
+        date=timezone.now(),
+        check_in_time=check_in_time,
+    )
