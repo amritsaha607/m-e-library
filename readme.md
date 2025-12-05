@@ -15,10 +15,8 @@ A sample successful response looks like below
   "name": "A1",
   "supervisor": "Sup1",
   "slot_start_time": "2025-12-05 09:33:13+00:00",
-  "slot_end_time": "2025-12-05 10:33:31+00:00",
-  "hourly_pay": "5.00",
-  "is_on_timeoff": false,
-  "is_checked_in": false
+  "slot_end_time": "2025-12-05 15:33:31+00:00",
+  "hourly_pay": "5.00"
 }
 ```
 
