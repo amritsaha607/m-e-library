@@ -3,7 +3,10 @@ from django.utils import timezone
 from .models import (AssociatePaymentAudit, StoreAssociate, Supervisor,
                      TimeOffRequest)
 
+# This must be used across the codebase to parse dates
 DATE_FORMAT = "%Y-%m-%d"
+
+# This must be used across the codebase to parse datetime objects
 DATETIME_FORMAT = "%Y-%m-%d %H:%M:%S"
 
 

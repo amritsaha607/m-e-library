@@ -9,7 +9,8 @@ from interactionApp.utils import (_approve_timeoff_request,
                                   _decline_timeoff_request,
                                   _get_associate_by_id,
                                   _get_timeoff_request_by_id,
-                                  _log_associate_check_in)
+                                  _log_associate_check_in,
+                                  _log_associate_check_out)
 
 
 @csrf_exempt
@@ -35,6 +36,6 @@ def store_check_out(request):
     """
 
     associate_id = request.POST['associate_id']
-    check_in_time = request.POST['check_in_time']
-    _log_associate_check_in(associate_id, check_in_time)
+    check_out_time = request.POST['check_out_time']
+    _log_associate_check_out(associate_id, check_out_time)
     return JsonResponse(RESPONSE_OK)
