@@ -15,9 +15,9 @@ class RequestSupervisorChangeView(View):
         """
         associate_id = request.POST.get('associate_id')
         new_supervisor_id = request.POST.get('new_supervisor_id')
-        data = _create_supervisor_change_request(
+        _create_supervisor_change_request(
             associate_id, new_supervisor_id)
-        return JsonResponse(data)
+        return JsonResponse(RESPONSE_OK)
 
 
 class UpdateSupervisorChangeRequestView(View):
