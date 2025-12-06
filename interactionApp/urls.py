@@ -1,6 +1,7 @@
 from django.urls import path
 
-from .views import (AssociateLookupView, approve_timeoff_request,
+from .views import (AssociateLookupView, RequestSupervisorChangeView,
+                    UpdateSupervisorChangeRequestView, approve_timeoff_request,
                     decline_timeoff_request, request_timeoff, store_check_in,
                     store_check_out)
 
@@ -13,4 +14,8 @@ urlpatterns = [
     path('store-check-out', store_check_out),
 
     path('associate', AssociateLookupView.as_view()),
+
+    path('req-supervior-change', RequestSupervisorChangeView.as_view()),
+    path('update-supervisor-change-req',
+         UpdateSupervisorChangeRequestView.as_view()),
 ]

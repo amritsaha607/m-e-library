@@ -3,6 +3,8 @@ import schedule
 from interactionApp.jobs import timeoff_population_job
 
 from .activity import store_check_in, store_check_out
+from .hierarchy import (RequestSupervisorChangeView,
+                        UpdateSupervisorChangeRequestView)
 from .leaves import (approve_timeoff_request, decline_timeoff_request,
                      request_timeoff)
 from .lookup import AssociateLookupView
