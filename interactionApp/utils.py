@@ -81,7 +81,6 @@ def _update_associate_payment(associate_id):
 
 def _create_supervisor_change_request(associate_id, new_supervisor_id):
     associate = _get_associate_by_id(associate_id)
-    cur_supervisor = associate.supervisor
     new_supervisor = _get_supervisor_by_id(new_supervisor_id)
 
     return SupervisorUpdateRequest.objects.create(
@@ -96,10 +95,12 @@ def _update_supervisor_change_request(change_req_id, supervisor_id, updated_stat
 
     if supervisor == change_req.raised_by.supervisor:
         change_req.cur_supervisor_approval_status = updated_status
+        change_req.update_ts = timezone.now()
         change_req.save()
 
     elif supervisor == change_req.new_supervisor:
         change_req.new_supervisor_approval_status = updated_status
+        change_req.update_ts = timezone.now()
         change_req.save()
 
     if change_req.cur_supervisor_approval_status == APPROVED \
