@@ -2,6 +2,7 @@ from django.utils import timezone
 
 from .models import (AssociatePaymentAudit, StoreAssociate, Supervisor,
                      SupervisorUpdateRequest, TimeOffRequest)
+from .models._utils import APPROVED
 
 # This must be used across the codebase to parse dates
 DATE_FORMAT = "%Y-%m-%d"
@@ -20,6 +21,10 @@ def _get_supervisor_by_id(_id: str | int) -> Supervisor:
 
 def _get_timeoff_request_by_id(_id: str | int) -> TimeOffRequest:
     return TimeOffRequest.objects.get(id=_id)
+
+
+def _get_supervisor_change_request_by_id(_id: str | int) -> SupervisorUpdateRequest:
+    return SupervisorUpdateRequest.objects.get(id=_id)
 
 
 def _create_timeoff_request(associate: StoreAssociate,
@@ -83,3 +88,22 @@ def _create_supervisor_change_request(associate_id, new_supervisor_id):
         raised_by=associate,
         new_supervisor=new_supervisor,
     )
+
+
+def _update_supervisor_change_request(change_req_id, supervisor_id, updated_status):
+    change_req = _get_supervisor_change_request_by_id(change_req_id)
+    supervisor = _get_supervisor_by_id(supervisor_id)
+
+    if supervisor == change_req.raised_by.supervisor:
+        change_req.cur_supervisor_approval_status = updated_status
+        change_req.save()
+
+    elif supervisor == change_req.new_supervisor:
+        change_req.new_supervisor_approval_status = updated_status
+        change_req.save()
+
+    if change_req.cur_supervisor_approval_status == APPROVED \
+            and change_req.new_supervisor_approval_status == APPROVED:
+        associate = change_req.raised_by
+        associate.supervisor = change_req.new_supervisor
+        associate.save()
