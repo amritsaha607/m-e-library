@@ -5,7 +5,7 @@
 - Updates the cache with associate data in an asynchronous thread
 - Returns associate data
 
-We're using Azure Redis cache for this implementation. Any implementation being done must support Azure Redis cache. A ttl should be set to every cache item with a max life of 1 day. We can assume we have enough storage in cache and storing data is not a challenge.
+We're using a simple python dictionary based inmemory cache for this implementation. Every cache item will be invalidated at the server midnight. We can assume we have enough storage in cache and storing data is not a challenge.
 If associate data is not present in database & cache, it MUST return with 404 response code and no data.
 
 A sample successful response looks like below
@@ -19,6 +19,12 @@ A sample successful response looks like below
   "hourly_pay": "5.00"
 }
 ```
+
+#### Update Supervisor flow
+
+- Request Supervisor Change API: Associate can request supervisor change in this API. An associate cannot raise another request until one request has reached it's terminal status. Terminal status means it's either DECLINED by any of the approvers, or APPROVED by both the approvers.
+
+- Update Supervisor Change Request API: The current supervisor of the associate can approve/decline the request raised by it's associates. This might take upto 1 day to reflect in the get associate API as this API doesn't update the inmemory cache.
 
 #### Features
 

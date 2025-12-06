@@ -1,7 +1,7 @@
 from django.utils import timezone
 
 from .models import (AssociatePaymentAudit, StoreAssociate, Supervisor,
-                     TimeOffRequest)
+                     SupervisorUpdateRequest, TimeOffRequest)
 
 # This must be used across the codebase to parse dates
 DATE_FORMAT = "%Y-%m-%d"
@@ -72,3 +72,14 @@ def _update_associate_payment(associate_id):
     )
 
     audit._compute_and_update_payment()
+
+
+def _create_supervisor_change_request(associate_id, new_supervisor_id):
+    associate = _get_associate_by_id(associate_id)
+    cur_supervisor = associate.supervisor
+    new_supervisor = _get_supervisor_by_id(new_supervisor_id)
+
+    return SupervisorUpdateRequest.objects.create(
+        raised_by=associate,
+        new_supervisor=new_supervisor,
+    )

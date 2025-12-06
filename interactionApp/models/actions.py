@@ -1,14 +1,9 @@
 from django.db import models
 from django.utils import timezone
 
+from ._utils import STATUS_CHOICES
 from .associate import StoreAssociate
 from .supervisor import Supervisor
-
-STATUS_CHOICES = [
-    ('PENDING', 'PENDING'),
-    ('APPROVED', 'APPROVED'),
-    ('DECLINED', 'DECLINED'),
-]
 
 
 class TimeOffRequest(models.Model):

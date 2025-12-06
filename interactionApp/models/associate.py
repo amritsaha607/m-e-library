@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 
+from ._utils import PENDING, STATUS_CHOICES
 from .supervisor import Supervisor
 
 
@@ -21,3 +22,23 @@ class StoreAssociate(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class SupervisorUpdateRequest(models.Model):
+    raised_by = models.ForeignKey(StoreAssociate,
+                                  on_delete=models.CASCADE,
+                                  related_name='supervisor_change_requests')
+    new_supervisor = models.ForeignKey(Supervisor,
+                                       on_delete=models.CASCADE,
+                                       related_name='supervisor_change_requests_to')
+    cur_supervisor_approval_status = models.CharField(max_length=10,
+                                                      choices=STATUS_CHOICES,
+                                                      default=PENDING)
+    new_supervisor_approval_status = models.CharField(max_length=10,
+                                                      choices=STATUS_CHOICES,
+                                                      default=PENDING)
+    create_ts = models.DateTimeField(default=timezone.now)
+    update_ts = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return self.raised_by.name
